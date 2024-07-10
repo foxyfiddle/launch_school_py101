@@ -1,0 +1,153 @@
+-----*****-----
+
+assignment_01 -- a function that returns the sum of two numbers.
+
+-- casual format --
+
+- create function with two arguments
+	- return the value of the sum of the two parameters
+
+- invoke function with two numbers as the parameters
+
+-- formal format --
+
+START
+
+SET function # should contain two arguments
+	SET result = parameter1 + parameter2
+	PRINT result
+
+INVOKE function # should contain two parameters
+
+END
+
+-----*****-----
+
+assignment_02 -- a function that takes a list of strings, and returns a string that is all those strings concatenated together.
+
+-- casual format --
+
+- create function with one argument
+	- use join() method with space to concatenate list 
+
+-- formal format --
+
+START
+
+SET function # should contain one argument
+	SET concat_string = space.join(argument) 
+	PRINT concat_string
+
+INVOKE function # should contain one parameter
+
+END
+
+-----*****-----
+
+assignment_03 -- a function that takes a list of integers, and returns a new list with every other element from the original list, starting with the first element. 
+
+-- casual format --
+
+- create function with one argument
+	- create new empty list
+	- loop through length of list
+		- if list iteration is even
+			- empty list = list iteration
+	- print the new list
+
+
+
+-- formal format --
+
+START
+
+SET function # should include one argument
+	SET new_list = empty list
+	WHILE list <= length of list
+		IF list % 2 = 0
+			new_list.append(list)
+	PRINT new_list
+
+INVOKE function # expects one parameter
+
+END
+
+-----*****-----
+
+assignment_04 -- a function that determines the index of the 3rd occurrence of a given character in a string. For instance, if the given character is 'x' and the string is 'axbxcdxex', the function should return 6 (the index of the 3rd 'x'). If the given character does not occur at least 3 times, return None. 
+
+-- casual format --
+
+- set function
+	set counter to zero
+	iterate through length of string
+		check to see if character is the same as the parameter
+			if it is, increase the counter by 1
+			check to see if counter equals 3
+				if it does print string
+				end loop
+	return None
+
+-- formal format --
+
+START
+
+# receive string variable
+
+SET function # one argument
+	SET counter = 0
+	FOR char in string
+		IF char == parameter
+			SET counter += 1
+		IF counter == 3
+			PRINT parameter.index(char)
+			BREAK
+		IF counter > 3
+			PRINT NONE
+			BREAK
+
+INVOKE function # One parameter
+
+END
+	
+-----*****-----
+
+assignment_05 -- a function that takes two lists of numbers and returns the result of merging the lists. The elements of the first list should become the elements at the even indexes of the returned list, while the elements of the second list should become the elements at the odd indexes. 
+
+-- casual format --
+
+- create a funtion that takes two arguments
+	- create an empty combined_list variable
+	- set iterator = 0
+ 	- While number is less than number_list01 length
+		- combined_list[iterator] = number
+		- iterator += 2 
+	- set iterator = 1
+	- While number is less than number_list02 length
+		- combined_list[iterator] = number
+		- iterator += 2 
+	- print combined_list
+
+-- formal format --
+
+START 
+
+SET function # two arguments
+	SET combined_lists = []
+	SET i = 0
+	FOR number in parameter1
+		combined_list[i] = number 
+		i += 2
+	SET i = 1
+	FOR number in parameter2
+		combined_list[i] = number
+		i += 2
+	PRINT combined_list
+
+INVOKE function
+
+END
+
+
+	
+
