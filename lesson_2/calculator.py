@@ -4,24 +4,31 @@
 # Perform the operation on the two numbers.
 # Print the result to the terminal.
 
-print('Welcome to Calculator!')
+def prompt(message):
+    print(f'==> {message}')
+
+prompt('Welcome to Calculator!')
 
 # Ask the user for the first and second number
-number1 = input("What's the first number?: ")
-number2 = input("What's the second number?: ")
+prompt("What's the first number?: ")
+number1 = input()
+prompt("What's the second number?: ")
+number2 = input()
 
-operation = input('What operation would you like to perform?\n'
+prompt('What operation would you like to perform?\n'
     '1) Add 2) Subtract 3) Multiply 4) Divide: ')
+operation = input()
     
-if operation == '1': # 1 represents addition
-    result = int(number1) + int(number2)
-elif operation == '2': # 2 represents subtraction
-    result = int(number1) - int(number2)
-elif operation == '3': # 3 represents multiplication
-    result = int(number1) * int(number2)
-elif operation == '4': # 4 represents division
-    result = int(number1) / int(number2)
-else:
-    print('Incorrect operation choice...')
+match operation:    
+    case '1': # 1 represents addition
+        result = int(number1) + int(number2)
+    case '2': # 2 represents subtraction
+        result = int(number1) - int(number2)
+    case '3': # 3 represents multiplication
+        result = int(number1) * int(number2)
+    case '4': # 4 represents division
+        result = int(number1) / int(number2)
+    case _:
+        print('Incorrect operation choice...')
     
-print(f'The result is {result}')
+prompt(f'The result is {result}')
