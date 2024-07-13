@@ -12,7 +12,7 @@ def invalid_number(number_str):
         int(number_str)
     except ValueError:
         return True
-    
+
     return False
 
 prompt('Welcome to Calculator!')
@@ -32,16 +32,16 @@ while invalid_number(number2):
     (prompt("hmm...that's not a valid number."))
     number2 = input()
 
-prompt('What operation would you like to perform?\n'
-    '1) Add 2) Subtract 3) Multiply 4) Divide: ')
+prompt("""What operation would you like to perform?
+1) Add 2) Subtract 3) Multiply 4) Divide: """)
 operation = input()
 
 # ["1", "2", "3", "4"]
 while operation not in ["1", "2", "3", "4"]:
     prompt("You must choose 1, 2, 3, or 4")
     operation = input()
-    
-match operation:    
+
+match operation:
     case '1': # 1 represents addition
         result = int(number1) + int(number2)
     case '2': # 2 represents subtraction
@@ -52,5 +52,5 @@ match operation:
         result = int(number1) / int(number2)
     case _:
         print('Incorrect operation choice...')
-    
+
 prompt(f'The result is {result}')
