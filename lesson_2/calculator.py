@@ -15,42 +15,58 @@ def invalid_number(number_str):
 
     return False
 
-prompt('Welcome to Calculator!')
+def calculation():
 
-# Ask the user for the first and second number
-prompt("What's the first number?: ")
-number1 = input()
-
-while invalid_number(number1):
-    (prompt("hmm...that's not a valid number."))
+    # Ask the user for the first and second number
+    prompt("What's the first number?: ")
     number1 = input()
 
-prompt("What's the second number?: ")
-number2 = input()
+    while invalid_number(number1):
+        (prompt("hmm...that's not a valid number."))
+        number1 = input()
 
-while invalid_number(number2):
-    (prompt("hmm...that's not a valid number."))
+    prompt("What's the second number?: ")
     number2 = input()
 
-prompt("""What operation would you like to perform?
-1) Add 2) Subtract 3) Multiply 4) Divide: """)
-operation = input()
+    while invalid_number(number2):
+        (prompt("hmm...that's not a valid number."))
+        number2 = input()
 
-# ["1", "2", "3", "4"]
-while operation not in ["1", "2", "3", "4"]:
-    prompt("You must choose 1, 2, 3, or 4")
+    prompt("""What operation would you like to perform?
+    1) Add 2) Subtract 3) Multiply 4) Divide: """)
     operation = input()
 
-match operation:
-    case '1': # 1 represents addition
-        result = int(number1) + int(number2)
-    case '2': # 2 represents subtraction
-        result = int(number1) - int(number2)
-    case '3': # 3 represents multiplication
-        result = int(number1) * int(number2)
-    case '4': # 4 represents division
-        result = int(number1) / int(number2)
-    case _:
-        print('Incorrect operation choice...')
+    # ["1", "2", "3", "4"]
+    while operation not in ["1", "2", "3", "4"]:
+        prompt("You must choose 1, 2, 3, or 4")
+        operation = input()
 
-prompt(f'The result is {result}')
+    match operation:
+        case '1': # 1 represents addition
+            result = int(number1) + int(number2)
+        case '2': # 2 represents subtraction
+            result = int(number1) - int(number2)
+        case '3': # 3 represents multiplication
+            result = int(number1) * int(number2)
+        case '4': # 4 represents division
+            result = int(number1) / int(number2)
+        case _:
+            print('Incorrect operation choice...')
+
+    prompt(f'The result is {result}')
+
+    prompt("would you like to use the calculator again? 1) yes 2) no")
+    user_choice = input()
+
+    if user_choice == '1':
+        is_true = True
+    else:
+        is_true = False
+
+
+is_true = True
+prompt('Welcome to Calculator!')
+
+while is_true:
+    calculation()
+
