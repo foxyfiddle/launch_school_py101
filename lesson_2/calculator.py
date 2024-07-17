@@ -4,6 +4,14 @@
 # Perform the operation on the two numbers.
 # Print the result to the terminal.
 
+import json
+
+# Load the messages from the JSON file
+with open('calculator_messages.json', 'r') as file:
+    MESSAGES = json.load(file)
+
+# Now 'MESSAGES' contains the loaded messages as a Python dictionary
+
 def prompt(message):
     print(f'==> {message}')
 
@@ -18,27 +26,26 @@ def invalid_number(number_str):
 def calculation():
 
     # Ask the user for the first and second number
-    prompt("What's the first number?: ")
+    prompt(MESSAGES['what_first_number'])
     number1 = input()
 
     while invalid_number(number1):
-        (prompt("hmm...that's not a valid number."))
+        prompt(MESSAGES['invalid_number'])
         number1 = input()
 
-    prompt("What's the second number?: ")
+    prompt(MESSAGES['what_second_number'])
     number2 = input()
 
     while invalid_number(number2):
-        (prompt("hmm...that's not a valid number."))
+        prompt(MESSAGES['invalid_number'])
         number2 = input()
 
-    prompt("""What operation would you like to perform?
-    1) Add 2) Subtract 3) Multiply 4) Divide: """)
+    prompt(MESSAGES['what_operation'])
     operation = input()
 
     # ["1", "2", "3", "4"]
     while operation not in ["1", "2", "3", "4"]:
-        prompt("You must choose 1, 2, 3, or 4")
+        prompt(MESSAGES['incorrect_operation'])
         operation = input()
 
     match operation:
@@ -50,23 +57,21 @@ def calculation():
             result = int(number1) * int(number2)
         case '4': # 4 represents division
             result = int(number1) / int(number2)
-        case _:
-            print('Incorrect operation choice...')
+        
 
     prompt(f'The result is {result}')
 
-    prompt("would you like to use the calculator again? 1) yes 2) no")
+
+should_continue = True
+prompt(MESSAGES['welcome'])
+
+while should_continue:
+    calculation()
+    prompt(MESSAGES['continue_question'])
     user_choice = input()
 
     if user_choice == '1':
-        is_true = True
+        should_continue = True
     else:
-        is_true = False
-
-
-is_true = True
-prompt('Welcome to Calculator!')
-
-while is_true:
-    calculation()
+        should_continue = False
 
