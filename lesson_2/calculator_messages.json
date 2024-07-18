@@ -1,10 +1,24 @@
-{
-    "welcome": "Welcome to Calculator!",
-    "continue_question": "Would you like to use the calculator again? 1) yes 2) no",
-    "what_first_number": "What's the first number?: ",
-    "invalid_number": "hmm...that's not a valid number.",
-    "what_second_number": "What's the second number?: ",
-    "what_operation": "What operation would you like to perform? 1) Add 2) Subtract 3) Multiply 4) Divide: ",
-    "incorrect_operation": "You must choose 1, 2, 3, or 4",
-    "result": "The result is"
-}
+{   
+   "en":{
+        "welcome": "Welcome to Calculator!",
+        "continue_question": "Would you like to use the calculator again? 1) yes 2) no",
+        "what_first_number": "What's the first number?: ",
+        "invalid_number": "hmm...that's not a valid number.",
+        "what_second_number": "What's the second number?: ",
+        "what_operation": "What operation would you like to perform? 1) Add 2) Subtract 3) Multiply 4) Divide: ",
+        "incorrect_operation": "You must choose 1, 2, 3, or 4",
+        "result": "The result is",
+        "invalid_continue": "You must choose 1 or 2"
+    },
+    "es":{
+        "welcome": "¡Bienvenido a Calculadora!",
+        "continue_question": "¿Quieres volver a utilizar la calculadora? 1) sí 2) no",
+        "what_first_number": "¿Cuál es el primer número?: ",
+        "invalid_number": "hmm... ese no es un número válido.",
+        "what_second_number": "¿Cuál es el segundo número?: ",
+        "what_operation": "¿Qué operación te gustaría realizar? 1) Sumar 2) Restar 3) Multiplicar 4) Dividir: ",
+        "incorrect_operation": "Debes elegir 1, 2, 3 o 4",
+        "result": "El resultado es",
+        "invalid_continue": "Debes elegir 1 o 2"
+    }
+}    

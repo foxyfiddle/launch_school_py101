@@ -10,7 +10,8 @@ import json
 with open('calculator_messages.json', 'r') as file:
     MESSAGES = json.load(file)
 
-# Now 'MESSAGES' contains the loaded messages as a Python dictionary
+def messages(message, lang='en'):
+    return MESSAGES[lang][message]
 
 def prompt(message):
     print(f'==> {message}')
@@ -26,26 +27,26 @@ def invalid_number(number_str):
 def calculation():
 
     # Ask the user for the first and second number
-    prompt(MESSAGES['what_first_number'])
+    prompt(messages('what_first_number', language))
     number1 = input()
 
     while invalid_number(number1):
-        prompt(MESSAGES['invalid_number'])
+        prompt(messages('invalid_number', language))
         number1 = input()
 
-    prompt(MESSAGES['what_second_number'])
+    prompt(messages('what_second_number', language))
     number2 = input()
 
     while invalid_number(number2):
-        prompt(MESSAGES['invalid_number'])
+        prompt(messages('invalid_number', language))
         number2 = input()
 
-    prompt(MESSAGES['what_operation'])
+    prompt(messages('what_operation', language))
     operation = input()
 
     # ["1", "2", "3", "4"]
     while operation not in ["1", "2", "3", "4"]:
-        prompt(MESSAGES['incorrect_operation'])
+        prompt(messages('incorrect_operation', language))
         operation = input()
 
     match operation:
@@ -59,19 +60,25 @@ def calculation():
             result = int(number1) / int(number2)
         
 
-    prompt(f'The result is {result}')
+    prompt(messages('result', language) + ' ' + str(result))
 
 
 should_continue = True
-prompt(MESSAGES['welcome'])
+language = 'es'
+
+prompt(messages('welcome', language))
 
 while should_continue:
     calculation()
-    prompt(MESSAGES['continue_question'])
+    prompt(messages('continue_question', language))
     user_choice = input()
 
+    while user_choice not in ['1', '2']:
+        prompt(messages('invalid_continue', language))
+        user_choice = input()
+    
     if user_choice == '1':
-        should_continue = True
+            should_continue = True
     else:
-        should_continue = False
+            should_continue = False
 
