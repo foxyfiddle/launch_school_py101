@@ -4,10 +4,11 @@
 # Perform the operation on the two numbers.
 # Print the result to the terminal.
 
+# modules
 import json
 
-# Load the messages from the JSON file
-with open('calculator_messages.json', 'r') as file:
+# Functions
+with open('calculator_messages.json', 'r') as file: # Load the messages from the JSON file
     MESSAGES = json.load(file)
 
 def messages(message, lang='en'):
@@ -18,7 +19,7 @@ def prompt(message):
 
 def invalid_number(number_str):
     try:
-        int(number_str)
+        float(number_str)
     except ValueError:
         return True
 
@@ -51,20 +52,22 @@ def calculation():
 
     match operation:
         case '1': # 1 represents addition
-            result = int(number1) + int(number2)
+            result = float(number1) + float(number2)
         case '2': # 2 represents subtraction
-            result = int(number1) - int(number2)
+            result = float(number1) - float(number2)
         case '3': # 3 represents multiplication
-            result = int(number1) * int(number2)
+            result = float(number1) * float(number2)
         case '4': # 4 represents division
-            result = int(number1) / int(number2)
+            result = float(number1) / float(number2)
         
 
     prompt(messages('result', language) + ' ' + str(result))
 
+# Start of main program
 
+# Set values
 should_continue = True
-language = 'es'
+language = 'en'
 
 prompt(messages('welcome', language))
 
