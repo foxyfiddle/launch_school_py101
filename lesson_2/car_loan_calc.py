@@ -21,7 +21,7 @@ def invalid_input(input):
         return False
     
 def monthly_rate(APR):
-    return float(APR) / 12
+    return float((float(APR) / 100) / 12)
 
 def years_to_months(months):
     return float(months) * 12
