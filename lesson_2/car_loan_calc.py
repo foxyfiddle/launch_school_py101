@@ -75,7 +75,7 @@ def is_valid_input(user_input):
 
     if float(user_input) <= 0:
         return False
-    return None
+    return True
 
 def main():
 
