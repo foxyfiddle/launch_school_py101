@@ -12,47 +12,82 @@
 def prompt(message):
     print(f'==> {message}')
 
-def invalid_input(input):
+def get_loan_amount():
+    global loan_amount
+    loan_amount = input()
+    while is_valid_input(loan_amount) is not True:
+        print('Please enter a positive numeric value')
+        loan_amount = input()
+    return loan_amount
+
+def get_apr():
+    global apr
+    apr = input()
+    while is_valid_input(apr) is not True:
+        print('Please enter a positive numeric value')
+        apr = input()
+    return apr
+
+def get_loan_duration():
+    global monthly_duration
+    loan_duration = input()
+    while is_valid_input(loan_duration) is not True:
+        print('Please enter a positive numeric value')
+        loan_duration = input()
+    monthly_duration = years_to_months(loan_duration)
+    return monthly_duration
+
+def invalid_input(user_input):
     try:
-        float(input)
+        float(user_input)
     except ValueError:
         return True
 
     return False
 
-def monthly_rate(percentage_rate):
-    return float((float(percentage_rate) / 100) / 12)
+def verify_positive_int(user_input):
+    if int(user_input) <= 0:
+        return True
+    return None
+
+def calculate_monthly_rate(percentage_rate):
+    global monthly_interest_rate
+    monthly_interest_rate = float((float(percentage_rate) / 100) / 12)
+    return monthly_interest_rate
 
 def years_to_months(months):
     return float(months) * 12
 
+def calculate_monthly_payment(loan_amount, monthly_interest_rate, \
+                               monthly_duration):
+    global monthly_payment_amount
+    monthly_payment_amount = float(loan_amount) * (float(monthly_interest_rate)
+        / (1 - (1 + float(monthly_interest_rate))
+        ** (-float(monthly_duration))))
+    prompt(f"your monthly payment is ${round(monthly_payment_amount, 2)}")
+    return monthly_payment_amount
 
+def is_valid_input(user_input):
+    try:
+        float(user_input)
+    except ValueError:
+        return False
 
-prompt('Please enter the loan amount')
-loan_amount = input()
+    if float(user_input) <= 0:
+        return False
+    return None
 
-while invalid_input(loan_amount):
-    prompt('Please enter a decimal value')
-    loan_amount = input()
+def main():
 
-prompt("Thank you! Please enter the Annual Percentage rate.")
-apr = input()
+    prompt('Please enter the loan amount')
+    get_loan_amount() # returns "loan_amount"
+    prompt("Thank you! Please enter the Annual Percentage rate.")
+    get_apr() # returns "apr" variable
+    calculate_monthly_rate(apr) # returns "monthly_interest_rate"
+    prompt("Thank you! Please enter the duration of the loan in years.")
+    get_loan_duration() # returns 'loan_duration"
+    prompt("Thanks!")
+    calculate_monthly_payment(loan_amount, \
+         monthly_interest_rate, monthly_duration)
 
-while invalid_input(apr):
-    prompt('Please enter a decimal value')
-    apr = input()
-
-monthly_interest_rate = monthly_rate(apr)
-prompt("Thank you! Please enter the duration of the loan in years.")
-loan_duration = input()
-
-while invalid_input(loan_duration):
-    prompt('Please enter a numeric value')
-    loan_duration = input()
-monthly_duration = years_to_months(loan_duration)
-prompt("Thanks!")
-
-monthly_payment = float(loan_amount) * (float(monthly_interest_rate) / (
-    (1 - (1 + float(monthly_interest_rate)) ** (-float(monthly_duration)))))
-
-prompt(f"your monthly payment is ${'%.2f' % monthly_payment}")
+main()
