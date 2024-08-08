@@ -9,11 +9,14 @@
 #   monthly interest rate (apr / 12)
 #   loan duration in months
 
+MONTHS_IN_YEAR = 12
+PRECISION = 2
+
 def prompt(message):
     print(f'==> {message}')
 
 def get_loan_amount():
-    global loan_amount
+    prompt('Please enter the loan amount')
     loan_amount = input()
     while is_valid_input(loan_amount) is not True:
         print('Please enter a positive numeric value')
@@ -21,7 +24,7 @@ def get_loan_amount():
     return loan_amount
 
 def get_apr():
-    global apr
+    prompt("Thank you! Please enter the Annual Percentage rate.")
     apr = input()
     while is_valid_input(apr) is not True:
         print('Please enter a positive numeric value')
@@ -29,7 +32,7 @@ def get_apr():
     return apr
 
 def get_loan_duration():
-    global monthly_duration
+    prompt("Thank you! Please enter the duration of the loan in years.")
     loan_duration = input()
     while is_valid_input(loan_duration) is not True:
         print('Please enter a positive numeric value')
@@ -51,20 +54,17 @@ def verify_positive_int(user_input):
     return None
 
 def calculate_monthly_rate(percentage_rate):
-    global monthly_interest_rate
-    monthly_interest_rate = float((float(percentage_rate) / 100) / 12)
+    monthly_interest_rate = float((float(percentage_rate) / 100) / MONTHS_IN_YEAR)
     return monthly_interest_rate
 
 def years_to_months(months):
-    return float(months) * 12
+    return float(months) * MONTHS_IN_YEAR
 
 def calculate_monthly_payment(loan_amount, monthly_interest_rate, \
                                monthly_duration):
-    global monthly_payment_amount
     monthly_payment_amount = float(loan_amount) * (float(monthly_interest_rate)
         / (1 - (1 + float(monthly_interest_rate))
         ** (-float(monthly_duration))))
-    prompt(f"your monthly payment is ${round(monthly_payment_amount, 2)}")
     return monthly_payment_amount
 
 def is_valid_input(user_input):
@@ -77,17 +77,17 @@ def is_valid_input(user_input):
         return False
     return True
 
-def main():
+def display_monthly_payment(monthly_payment_amount):
+    prompt(f"your monthly payment is ${round(monthly_payment_amount, PRECISION)}")
 
-    prompt('Please enter the loan amount')
-    get_loan_amount() # returns "loan_amount"
-    prompt("Thank you! Please enter the Annual Percentage rate.")
-    get_apr() # returns "apr" variable
-    calculate_monthly_rate(apr) # returns "monthly_interest_rate"
-    prompt("Thank you! Please enter the duration of the loan in years.")
-    get_loan_duration() # returns 'loan_duration"
+def main():
+    loan_amount = get_loan_amount()
+    apr = get_apr()
+    monthly_interest_rate = calculate_monthly_rate(apr)
+    monthly_duration = get_loan_duration()
     prompt("Thanks!")
-    calculate_monthly_payment(loan_amount, \
+    monthly_payment_amount = calculate_monthly_payment(loan_amount, \
          monthly_interest_rate, monthly_duration)
+    display_monthly_payment(monthly_payment_amount)
 
 main()
