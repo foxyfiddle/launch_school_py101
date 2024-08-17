@@ -1,22 +1,24 @@
-# get player choice -- done
-# get computer choice -- done
-# calculate winner -- done
-# display winner of round -- done
-# update total of rounds won -- done
-# loop through first 5 steps -- done
-# when someone wins 3 rounds -- done
-# display winner of round and game
-# ask if player wants to play again
-
 import random
+import os
 
 VALID_CHOICES = ['rock', 'paper', 'scissors', 'lizard', 'spock']
+STARTING_ROUND_COUNTER = 1
+STARTING_ROUNDS_WON = 0
 
 def prompt(message):
     print(f'==> {message}')
 
+def clear_console():
+    os.system('cls')
+    os.system('clear')
+
 def welcome_message():
     prompt('Welcome to "Rock, Paper, Scissors, Lizard, Spock!"')
+    prompt('Whoever wins the first 3 out of 5 rounds, wins the game!')
+    prompt('...press enter to continue')
+    input()
+
+    clear_console()
 
 def is_valid_choice(choice):
     if choice.startswith('r') or choice.startswith('p') or \
@@ -70,7 +72,6 @@ def is_rock_choice(choice):
             answer = input().lower()
 
         if answer == 'y':
-            prompt('Awesome! Nice choice!')
             return True
         return False
     return False
@@ -91,13 +92,12 @@ def is_paper_choice(choice):
             answer = input().lower()
 
         if answer == 'y':
-            prompt('Awesome! Nice choice!')
             return True
         return False
     return False
 
 def is_scissors_choice(choice):
-    if choice == 'scissors':
+    if choice in ('scissors', 'sc'):
         return True
     if choice == 's':
         prompt('Which did you mean? a) scissors b) spock')
@@ -109,11 +109,9 @@ def is_scissors_choice(choice):
             prompt('please enter "a" or "b".')
             answer = input().lower()
         if answer == 'a':
-            prompt('Awesome! Nice choice!')
             return True
-        prompt('Awesome! Nice choice!')
         return False
-    if choice.startswith('s') and choice != 'scissors':
+    if choice.startswith('s') and choice not in ('scissors', 'sp', 'spock'):
         prompt('Did you mean "scissors?" (y/n)')
         answer = input().lower()
         while True:
@@ -124,7 +122,6 @@ def is_scissors_choice(choice):
             answer = input().lower()
 
         if answer == 'y':
-            prompt('Awesome! Nice choice!')
             return True
         return False
     return False
@@ -145,13 +142,12 @@ def is_lizard_choice(choice):
             answer = input().lower()
 
         if answer == 'y':
-            prompt('Awesome! Nice choice!')
             return True
         return False
     return False
 
 def is_spock_choice(choice):
-    if choice == 'spock':
+    if choice in ('spock', 'sp'):
         return True
     if choice == 's':
         return True
@@ -166,7 +162,6 @@ def is_spock_choice(choice):
             answer = input().lower()
 
         if answer == 'y':
-            prompt('Awesome! Nice choice!')
             return True
         return False
     return False
@@ -175,7 +170,7 @@ def get_player_choice():
     while True:
         prompt(f'choose one of the following: ({", ".join(VALID_CHOICES)}.)')
         prompt(
-    "Make your choice by typing the full word or first letter. Choose wisely!")
+    "Make your choice by typing the full word or first letter.")
 
         player_input = input().lower()
         while True:
@@ -289,19 +284,21 @@ def is_winner(winning_input, losing_input):
 
     return False
 
-def display_round_winner(winner_result, player_choice, computer_choice, round_number):
+def display_round_winner(winner_result, player_choice, \
+                         computer_choice, round_number):
     # 0 = player_winner
     # 1 = computer_winner
 
     if winner_result == 0:
         prompt(f"You chose {player_choice}, and the "
-                 f"computer chose {computer_choice}; You won round {round_number}!")
+        f"computer chose {computer_choice}; You won round {round_number}!")
     elif winner_result == 1:
         prompt(f"You chose {player_choice}, and the "
-                 f"computer chose {computer_choice}; the computer won round {round_number}!")
+               f"computer chose {computer_choice}; the "
+               f"computer won round {round_number}!")
     else:
         prompt(f"You chose {player_choice}, and the "
-                 f"computer chose {computer_choice}; round {round_number} was a tie!")
+        f"computer chose {computer_choice}; round {round_number} was a tie!")
 
 def calculate_winner(player_choice, computer_choice):
     # 0 = player_winner
@@ -326,17 +323,27 @@ def is_play_again():
     while True:
         if play_again.startswith('y') or play_again.startswith('n'):
             break
-        else: 
-            prompt('Please choose y or n')
-            play_again = input()
+        prompt('Please choose y or n')
+        play_again = input()
     if play_again == 'y':
         return True
     if play_again == 'n':
         return False
+    return None
 
 def increase_round_number(current_round):
     current_round += 1
     return current_round
+
+def display_game_winner(player_rounds):
+    if player_rounds == 3:
+        prompt('You won 3 rounds! You won the game!')
+    else:
+        prompt('The computer won 3 rounds! You lost the game!')
+
+def reset_value(number):
+    value = number
+    return value
 
 def main():
     player_rounds_won = 0
@@ -345,26 +352,36 @@ def main():
 
     welcome_message()
     while True:
+
         player_choice = get_player_choice()
         computer_choice = get_computer_choice()
+
+        clear_console()
+
         round_winner = calculate_winner(player_choice, computer_choice)
         display_round_winner(round_winner, \
             player_choice, computer_choice, rounds_counter)
         rounds_counter = increase_round_number(rounds_counter)
+
         if round_winner == 0:
             player_rounds_won = update_rounds_won(player_rounds_won)
         if round_winner == 1:
             computer_rounds_won = update_rounds_won(computer_rounds_won)
-        print(player_rounds_won)
-        print(computer_rounds_won)
+
+        print(f'Player: {player_rounds_won}')
+        print(f'Computer: {computer_rounds_won}')
+
         if player_rounds_won == 3 or computer_rounds_won == 3:
+            display_game_winner(player_rounds_won)
             play_again = is_play_again()
             if play_again is True:
+                player_rounds_won = reset_value(STARTING_ROUNDS_WON)
+                computer_rounds_won = reset_value(STARTING_ROUNDS_WON)
+                rounds_counter = reset_value(STARTING_ROUND_COUNTER)
+                clear_console()
                 continue
-            else:
-                prompt('Thanks for playing!')
-                break
-            
+            prompt('Thanks for playing!')
+            break
 
-
+clear_console()
 main()
